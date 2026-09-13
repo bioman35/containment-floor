@@ -78,7 +78,7 @@ SCENARIO G   "spec_sha256": "ee4919b910315efd…"  and  "spec_sha256": "b5c13bb4
 last line    seven scenarios · trails written next to this file · standard library only
 ```
 
-For a full comparison, compare your output with `runs/reference_floor_linux_py3.10_20260903.txt`. Ignore line endings. These values change on every run by design: the checkpoint head in scenario C; the anchor, keys, window numbers and spec digests in scenario F; the keys and the published-heads digest in scenario G.
+For a full comparison, compare your output with `runs/reference_floor_linux_py3.10_20260903.txt`. Ignore line endings. These values change on every run by design. In scenario C: the checkpoint head. In scenario F: the anchor, keys, window numbers and spec digests. In scenario G: the keys and the published-heads digest.
 
 ## 3 · Run group_head.py
 

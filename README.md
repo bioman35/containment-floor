@@ -44,9 +44,9 @@ Different on every run, by design: values derived from the current time window o
 | group_head.py | macOS | 3.9.6 | R. Kayık | 12 Sep 2026 | `runs/run_macos_py3.9.6_group_head_20260912.txt` |
 | group_head.py | Linux | 3.11.15 | advisor (Claude, cloud sandbox), files fetched from this repository | 13 Sep 2026 | `runs/run_linux_py3.11_group_head_20260913.txt` |
 
-Conflict of interest, as stated in the report (Table 2): runners R. İ. Kayık and R. Kayık are the author's children; Kağan Doğan is unrelated.
+Conflict of interest, as stated in the report (Table 2): runners R. İ. Kayık and R. Kayık are the author's children. Kağan Doğan is unrelated.
 
-The run by Kağan Doğan was compared digest by digest when it arrived. The file keeps that comparison, not the full console output. The report's earlier run by R. İ. Kayık on 5 Sep 2026 is listed in the report's table; its transcript is not in this repository, and the same runner's 12 Sep run is. The reviewer ran `group_head.py` on three Python versions and one transcript is kept. In the transcripts, user names, host names and home paths are replaced by `<prompt>`, `<host>` and `<path>`. Nothing else was changed.
+The run by Kağan Doğan was compared digest by digest when it arrived. The file keeps that comparison, not the full console output. The report's earlier run by R. İ. Kayık on 5 Sep 2026 is listed in the report's table. Its transcript is not in this repository. The same runner's 12 Sep run is. The reviewer ran `group_head.py` on three Python versions and one transcript is kept. In the transcripts, user names, host names and home paths are replaced by `<prompt>`, `<host>` and `<path>`. Nothing else was changed.
 
 ## Hashes
 
@@ -63,6 +63,6 @@ sha256sum -c SHA256SUMS.txt
 
 ## License and report
 
-The code is licensed under the Apache License 2.0; see `LICENSE` and the SPDX header in `floor.py`. Author: Turan Kayık.
+The code is licensed under the Apache License 2.0. See `LICENSE` and the SPDX header in `floor.py`. Author: Turan Kayık.
 
 Report: "The Floor That Cannot Be Lowered", Apart Research AI Incident Response Sprint, September 2026. A link will be added when the report is published.
