@@ -33,6 +33,7 @@ Different on every run, by design: values derived from the current time window o
 | floor.py | Linux | 3.10.12 | author, reference run at the freeze | 3 Sep 2026 | `runs/reference_floor_linux_py3.10_20260903.txt` |
 | floor.py | Windows | 3.14.2 | author | 13 Sep 2026 | `runs/run_windows_py3.14.2_floor_20260913.txt` |
 | floor.py | Linux | 3.10.12 | reviewer (Claude Code) | 13 Sep 2026 | `runs/run_linux_py3.10_floor_20260913.txt` |
+| floor.py | Linux | 3.11.15 | advisor (Claude, cloud sandbox), files fetched from this repository | 13 Sep 2026 | `runs/run_linux_py3.11_floor_20260913.txt` |
 | floor.py | macOS | 3.9.6 | R. Kayık | 5 Sep 2026 | `runs/run_macos_py3.9.6_floor_20260905.txt` |
 | floor.py | macOS | 3.9.6 | R. Kayık | 12 Sep 2026 | `runs/run_macos_py3.9.6_floor_20260912.txt` |
 | floor.py | macOS | 3.13.13 | R. İ. Kayık | 12 Sep 2026 | `runs/run_macos_py3.13.13_floor_20260912.txt` |
@@ -41,6 +42,7 @@ Different on every run, by design: values derived from the current time window o
 | group_head.py | Linux | 3.10, 3.11, 3.12 | reviewer (Claude Code) | 12 Sep 2026 | `runs/run_linux_py3.10-3.12_group_head_20260912.txt` |
 | group_head.py | macOS | 3.13.13 | R. İ. Kayık | 12 Sep 2026 | `runs/run_macos_py3.13.13_group_head_20260912.txt` |
 | group_head.py | macOS | 3.9.6 | R. Kayık | 12 Sep 2026 | `runs/run_macos_py3.9.6_group_head_20260912.txt` |
+| group_head.py | Linux | 3.11.15 | advisor (Claude, cloud sandbox), files fetched from this repository | 13 Sep 2026 | `runs/run_linux_py3.11_group_head_20260913.txt` |
 
 Conflict of interest, as stated in the report (Table 2): runners R. İ. Kayık and R. Kayık are the author's children; Kağan Doğan is unrelated.
 
