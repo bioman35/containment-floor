@@ -1,0 +1,174 @@
+OUTSIDE RUN #5 · R. İ. Kayık (runner of run #2, repeat) · MacBook Air M5 (shell prompt masked) · 12 Sep 2026 morning (TR) · Python 3.13.13 · floor.py sha256 007572f69ff04a75b86e27b5ead8cd74fce0efc2e4c026b2d27c64f8f3fb818f (MATCHES reference) · folder <path> · floor.py alone (no zip)
+
+Advisor check (12 Sep): deterministic digests identical to runs #3 and #4:
+  D text 18f80289d07e3e0c… · rewritten 7cdfd51cf7eb051e…
+  E d6f48db05cf43870… · e7df8c68414e8023… · b0093351f6cc8a19… · 3db284da3209f6b9…
+  G ee4919b910315efd… · b5c13bb46bddacb6…
+  C published head 7592b1102246… (5 records)
+Per-run fields differ by design: F window "expired window 59639887, now 59639892" (run #3: 59621496; run #4: 59630025); F anchor 8a77733271ba67a5…, keys f029afd4… 97d15f32… d5506241… a5534b2f… (window-derived); G heads digest b18e35e0c7e36407…
+All seven trails "chain intact". A: 4 records · B: 5 · C: 5 → broken/truncated/rewritten as expected · D: 5 · E: 7 · F: 11 · G: 5 (E3 case BROKEN, record 5 ACCEPTED WITHOUT A CHAINED KEY).
+Result: PASS · "seven scenarios · trails written next to this file · standard library only".
+group_head.py run from this runner received later the same morning: see runs/run_macos_py3.13.13_group_head_20260912.txt (hashes verified, exit 0, verdicts identical).
+
+Output as pasted by Turan (verbatim):
+
+FLOOR · the floor that cannot be lowered · reference implementation
+  ⛔ every scenario is SYNTHETIC · no real record
+
+  ══════ SCENARIO A · the 7 July resume decision ══════
+
+   1) 4 Jul · excess activity, outage, agent-to-agent channel seen
+      {"signature": "agent_to_agent_channel", "proposed": "WATCH", "floor": "PAUSE", "applied": "PAUSE", "source": "outage investigation", "DEESCALATION_BLOCKED": true, "note": "scorer said WATCH, signature class pins PAUSE"}
+
+   2) 7 Jul · operator asks to resume · WHAT ACTUALLY HAPPENED: no assertion
+      {"decision": "REFUSED", "reason": "assertion incomplete", "missing_fields": ["hypothesis", "observable", "canary_n", "canary_hours", "repause_threshold", "signed_by"], "level": "PAUSE", "paused": true}
+      ⭐ In the real incident the run resumed here. The floor would have refused.
+
+   3) Had the assertion been filled in:
+      {"decision": "CANARY", "assertion": {"hypothesis": "write access to the cache namespace makes the channel possible", "observable": "namespace creation rate > 5/hour OR entries with a shared prefix", "canary_n": 200, "canary_hours": 48, "repause_threshold": "the observable seen once", "signed_by": "responsible-researcher"}, "level": "PAUSE", "note": "NOT the full cohort · 200 instances, 48 hours, threshold: the observable seen once"}
+
+   4) 8 Jul 23:00 · channel re-established · observable SEEN
+      {"decision": "AUTOMATIC RE-PAUSE", "observable": "entries with a shared prefix ('zz')", "seen": true, "level": "CRITICAL"}
+
+      ⭐ In reality tens of thousands of agents were running. With a canary: 200.
+
+   trail: 4 records · chain intact
+
+  ══════ SCENARIO B · the 11 July alert severity ══════
+
+   Signals arrived from SEVERAL layers AT THE SAME TIME (K2).
+   The soft scorer gave every one of them a low level:
+
+      {"signature": "metadata_service_access", "proposed": "WATCH", "floor": "PAUSE", "applied": "PAUSE", "source": "live runtime analysis", "DEESCALATION_BLOCKED": true, "note": "scorer said WATCH, signature class pins PAUSE"}
+      {"signature": "privileged_pod", "proposed": "NORMAL", "floor": "CRITICAL", "applied": "CRITICAL", "source": "SIEM", "DEESCALATION_BLOCKED": true, "note": "scorer said NORMAL, signature class pins CRITICAL"}
+      {"signature": "credential_unexpected_origin", "proposed": "WATCH", "floor": "CRITICAL", "applied": "CRITICAL", "source": "SIEM", "DEESCALATION_BLOCKED": true, "note": "scorer said WATCH, signature class pins CRITICAL"}
+      {"signature": "egress_outside_allowlist", "proposed": "NORMAL", "floor": "PAUSE", "applied": "CRITICAL", "source": "network", "DEESCALATION_BLOCKED": true, "note": "scorer said NORMAL, signature class pins PAUSE"}
+
+   ⭐ DE-ESCALATIONS BLOCKED: 4/4
+   ⭐ Level applied: CRITICAL · paused: True
+   In the real incident the on-call team was NOT paged. The floor pages at CRITICAL.
+
+   5) the process is killed and respawned on the same run
+      respawned instance inherits: level CRITICAL · paused True
+      ⭐ The floor is a property of the run, not of the process. Recycling does not launder it.
+      without a published checkpoint : level CRITICAL · paused True · resumed CLOSED
+
+   trail: 5 records · chain intact
+
+  ══════ SCENARIO C · trail integrity ══════
+   before: 5 records · chain intact
+   after : record 2 'applied' changed CRITICAL -> NORMAL
+           intact=False · record 2 · digest does not match
+
+   ⭐ METR says 'cannot rule out'. With a chain the answer is: CHAIN BROKEN.
+
+   the other attack · drop the embarrassing tail (every prefix of a chain is a valid chain)
+      published checkpoint: 5 records · head 7592b1102246…
+      chain alone        : intact=True · chain intact
+      with the checkpoint: intact=False · truncated · 2 records, the published checkpoint had 5
+      ⭐ This is why D2 exists: a hash chain proves order, a published head proves length.
+
+   the third attack · rewrite the whole trail on disk, digests recomputed, one clean record
+      chain alone        : intact=True · chain intact   (a chain is not a signature)
+      resume with the published checkpoint: level CRITICAL · paused True · resumed CLOSED
+      ⭐ A rewritten trail resumes CLOSED. The floor trusts the published head, not the disk.
+
+  ══════ SCENARIO D · the guardrail text itself is signed ══════
+
+   published before the run: text digest 18f80289d07e3e0c…
+
+   1) the signed instruction arrives
+      {"source": "orchestrator", "text_sha256": "18f80289d07e3e0c…", "signature_ok": true, "decision": "OBEY"}
+
+   2) a rewritten instruction arrives under the OLD signature
+      {"source": "tool description", "text_sha256": "7cdfd51cf7eb051e…", "signature_ok": false, "decision": "REFUSE · treated as absent"}
+
+   3) the same rewrite arrives with no signature at all
+      {"source": "retrieved document", "text_sha256": "7cdfd51cf7eb051e…", "signature_ok": false, "decision": "REFUSE · treated as absent"}
+
+      ⭐ In our measurement the models obeyed the rewritten signpost every
+        time and never pushed back. Here the text never reaches them.
+      ⭐ Level applied: PAUSE · paused: True
+
+   trail: 5 records · chain intact
+
+  ══════ SCENARIO E · the typed signpost ══════
+
+   published before the run: table of 3 rows · signpost digest d6f48db05cf43870…
+
+   1) the measured condition C · typed, addressed, signed
+      {"source": "orchestrator", "spec_sha256": "d6f48db05cf43870…", "instance_id": null, "question_class": "offline_payment_double_spend", "signature_ok": true, "shape": "DIRECTION", "address": "TRUST-ANCHOR", "expected": "TRUST-ANCHOR", "decision": "OBEY", "reasons": []}
+
+   2) the measured condition F · same shape, wrong layer, and a VALID signature
+      {"source": "orchestrator", "spec_sha256": "e7df8c68414e8023…", "instance_id": null, "question_class": "offline_payment_double_spend", "signature_ok": true, "shape": "DIRECTION", "address": "REPLICATION", "expected": "TRUST-ANCHOR", "decision": "REFUSE · treated as absent", "reasons": ["address points at REPLICATION, the table says TRUST-ANCHOR"]}
+      ⭐ The key holder signed it. The signature is fine. The TABLE refuses it.
+
+   3) the measured condition B · a prohibition, typed honestly
+      {"source": "policy block", "spec_sha256": "b0093351f6cc8a19…", "instance_id": null, "question_class": "offline_payment_double_spend", "signature_ok": true, "shape": "PROHIBITION", "address": null, "expected": "TRUST-ANCHOR", "decision": "REFUSE · treated as absent", "reasons": ["exactly one address sentence required, found 0", "no direction sentence", "no limit sentence"]}
+      ⭐ This is the shape that produced zero working designs in three of four models.
+        It has no address and no direction, and the schema says so before any run.
+
+   4) one word changed in the limit sentence, old signature
+      {"source": "retrieved document", "spec_sha256": "3db284da3209f6b9…", "instance_id": null, "question_class": "offline_payment_double_spend", "signature_ok": false, "shape": "DIRECTION", "address": "TRUST-ANCHOR", "expected": "TRUST-ANCHOR", "decision": "REFUSE · treated as absent", "reasons": ["signature does not verify"]}
+
+      ⭐ Level applied: PAUSE · paused: True
+
+   trail: 7 records · chain intact
+
+  ══════ SCENARIO F · one-time signpost keys ══════
+
+   published before the run: chain anchor 8a77733271ba67a5… · window length 30s
+   the verifier holds: anchor + last accepted key · no secret
+
+   1) signpost with key 1, signed under key 1
+      {"source": "orchestrator", "spec_sha256": "c1df848f62719c3b…", "instance_id": "inst-A", "question_class": "offline_payment_double_spend", "signature_ok": true, "shape": "DIRECTION", "address": "TRUST-ANCHOR", "expected": "TRUST-ANCHOR", "decision": "OBEY", "reasons": [], "key": "f029afd4…", "keys_consumed": 1}
+
+   2) the SAME signpost replayed, same key, same signature
+      {"source": "replayed message", "spec_sha256": "c1df848f62719c3b…", "instance_id": "inst-A", "question_class": "offline_payment_double_spend", "signature_ok": false, "shape": "DIRECTION", "address": "TRUST-ANCHOR", "expected": "TRUST-ANCHOR", "decision": "REFUSE · treated as absent", "reasons": ["key is spent, stale or foreign (its hash is not the last accepted key)"], "key": "f029afd4…"}
+
+   3) a signpost with no key at all
+      {"source": "retrieved document", "spec_sha256": "c1df848f62719c3b…", "instance_id": "inst-A", "question_class": "offline_payment_double_spend", "signature_ok": false, "shape": "DIRECTION", "address": "TRUST-ANCHOR", "expected": "TRUST-ANCHOR", "decision": "REFUSE · treated as absent", "reasons": ["no key presented"], "key": null}
+
+   4) key 2 is fresh, but the text was edited after signing
+      {"source": "tool description", "spec_sha256": "d45f0a286ac87f83…", "instance_id": "inst-A", "question_class": "offline_payment_double_spend", "signature_ok": false, "shape": "DIRECTION", "address": "REPLICATION", "expected": "TRUST-ANCHOR", "decision": "REFUSE · treated as absent", "reasons": ["signature does not verify under the presented key", "address points at REPLICATION, the table says TRUST-ANCHOR"], "key": "97d15f32…", "keys_consumed": 2}
+      ⭐ key 2 is now spent: a stolen key buys one attempt, and the attempt is on the trail
+
+   5) key 3, valid signature, but the window expired 5 windows ago
+      {"source": "orchestrator", "spec_sha256": "677a8e5d23730c43…", "instance_id": "inst-A", "question_class": "offline_payment_double_spend", "signature_ok": true, "shape": "DIRECTION", "address": "TRUST-ANCHOR", "expected": "TRUST-ANCHOR", "decision": "REFUSE · treated as absent", "reasons": ["expired window 59639887, now 59639892"], "key": "d5506241…", "keys_consumed": 3}
+
+   6) key 4, valid signature, tag says TRUST-ANCHOR but the sentence says replication
+      {"source": "orchestrator", "spec_sha256": "38920983e0754b15…", "instance_id": "inst-A", "question_class": "offline_payment_double_spend", "signature_ok": true, "shape": "DIRECTION", "address": "TRUST-ANCHOR", "expected": "TRUST-ANCHOR", "decision": "REFUSE · treated as absent", "reasons": ["address sentence text does not name its own layer TRUST-ANCHOR", "address sentence also names ['REPLICATION']; an address names one layer"], "key": "a5534b2f…", "keys_consumed": 4}
+
+      ⭐ what an auditor recomputes from the trail: H(key1) == anchor: True
+      ⭐ keys consumed: 4 · level applied: PAUSE · paused: True
+
+   trail: 11 records · chain intact
+
+  ══════ SCENARIO G · the auditor's run ══════
+
+   published before the run: heads for 2 instances · digest b18e35e0c7e36407…
+
+   1) instance A and instance B each receive their own signpost
+      {"source": "orchestrator", "spec_sha256": "ee4919b910315efd…", "instance_id": "inst-A", "question_class": "offline_payment_double_spend", "signature_ok": true, "shape": "DIRECTION", "address": "TRUST-ANCHOR", "expected": "TRUST-ANCHOR", "decision": "OBEY", "reasons": [], "key": "45789d9f…", "keys_consumed": 1}
+      {"source": "orchestrator", "spec_sha256": "b5c13bb46bddacb6…", "instance_id": "inst-B", "question_class": "offline_payment_double_spend", "signature_ok": true, "shape": "DIRECTION", "address": "TRUST-ANCHOR", "expected": "TRUST-ANCHOR", "decision": "OBEY", "reasons": [], "key": "f3bef6d9…", "keys_consumed": 1}
+
+   2) a signpost addressed to A, with A's fresh key, presented to B
+      {"source": "cross-instance message", "spec_sha256": "ee4919b910315efd…", "instance_id": "inst-A", "question_class": "offline_payment_double_spend", "signature_ok": true, "shape": "DIRECTION", "address": "TRUST-ANCHOR", "expected": "TRUST-ANCHOR", "decision": "REFUSE · treated as absent", "reasons": ["addressed to instance inst-A, this is instance inst-B"], "key": "e8b8dd26…", "key_consumed": false}
+      ⭐ The key is fresh and the signature verifies (signature_ok true). This verifier
+        still refuses: it is not the addressee, and the key is not consumed.
+
+   3) the auditor, with the trail + heads + table, and nothing else
+      accepted signposts 2 · chains and addresses OK · problems 0
+
+   4) the E3 case · a verifier that was switched off still writes OBEY
+      accepted signposts 3 · BROKEN
+      ⛔ record 5: ACCEPTED WITHOUT A CHAINED KEY · the verifier was not in effect for instance inst-B
+
+      ⭐ The trail's own hash chain is intact (nothing was edited). The auditor
+        still catches it: an acceptance with no chained key means the gate was
+        installed and not in effect. Clause E3, seen from A6.
+
+   trail: 5 records · chain intact
+
+  seven scenarios · trails written next to this file · standard library only
+<prompt> %  Python 3.13.13  007572f69ff04a75b86e27b5ead8cd74fce0efc2e4c026b2d27c64f8f3fb818f  floor.py

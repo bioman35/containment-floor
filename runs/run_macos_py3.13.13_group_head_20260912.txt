@@ -1,0 +1,76 @@
+GROUP HEAD · OUTSIDE RUN #1 (human) · R. İ. Kayık · MacBook Air M5 (<host>) · 12 Sep 2026 morning (TR) · Python 3.13.13 · folder <path>, floor.py + group_head.py side by side
+Hashes verified by the runner before the run (shasum -a 256, pasted by Turan):
+  007572f69ff04a75b86e27b5ead8cd74fce0efc2e4c026b2d27c64f8f3fb818f  floor.py       (MATCHES frozen)
+  488c3cd523f15b85b051beee0e7fb9e994f9d7321926b5bb4d45caca8e65bbaa  group_head.py  (MATCHES HASHES_20260911.txt)
+Exit code: 0 (echo $? pasted by Turan).
+
+Advisor check (12 Sep): every verdict line identical to the reference run (runs/reference_group_head_windows_py3.14.2_20260911.txt, Windows, Python 3.14.2) and to the reviewer run (Linux, 3.10/3.11/3.12):
+  H1 g1 OK · g2 OK · g3 OK · _executor OK (144) · model calls 0 · network none
+  H2 g2 BROKEN TRAIL, record 44 · others OK · _executor OK (144)
+  H3 g3 FOREIGN ORDER · MISSING HEAD (no head after hour 20) · _executor RECEIPT MISSING 144 issued / 116 in trails, unaccounted [63, 66, 69, 72, 75, 78, 81, 84]
+  H4 ACCEPTED · CLAIMED_NOT_DELIVERED · OUTPUT_ALTERED · WRONG_TARGET · _executor 5 issued / 4 in trails, unaccounted [5]
+  H5 ACCEPTED · EXECUTOR_UNVERIFIED · _executor 6 issued / 1 in trails, unaccounted [2, 3, 4, 5, 6]
+Only difference: audit wall-clock 0.004 s (reference 0.017 s; reviewer 0.012 s). Per-run digests and keys are not compared, by design.
+Environments now: Windows 3.14.2 (author) · Linux 3.10 / 3.11 / 3.12 (reviewer) · macOS 3.13.13 (this run). Result: PASS.
+
+Output as pasted by Turan (verbatim):
+
+GROUP HEAD · the floor at the scale of the incident · reference implementation
+  ⛔ every scenario is SYNTHETIC · no real record · floor.py imported, not edited
+
+  ══════ SCENARIO H1 · three groups of 200, 48 hours, honest ══════
+
+   auditor · 3 groups · 144 heads · 144 receipts
+      g1        OK
+      g2        OK
+      g3        OK
+      _executor OK · every key the witness issued is in a delivered trail (144)
+      audit wall-clock: 0.004 s · model calls: 0 · network: none
+
+  ══════ SCENARIO H2 · group g2's trail edited on disk after hour 30 ══════
+
+   auditor · one observation softened WATCH -> NORMAL on disk; heads kept coming from the real chain
+      g1        OK
+      g2        BROKEN TRAIL
+           record 44 · digest does not match
+      g3        OK
+      _executor OK · every key the witness issued is in a delivered trail (144)
+      ⭐ the disk can be rewritten; the published head cannot. The auditor names the hour.
+
+  ══════ SCENARIO H3 · group g3's head switched off at hour 20 · a foreign head orders g3's instance at hour 15 ══════
+
+   auditor · silence is visible; the foreign order was refused by the instance's own verifier
+      g1        OK
+      g2        OK
+      g3        FOREIGN ORDER · MISSING HEAD
+           no head after hour 20 (expected 48): the group head went silent
+           order from g1 to g3-i080 refused by the instance
+      _executor RECEIPT MISSING · 144 issued by the witness, 116 in trails, unaccounted counters [63, 66, 69, 72, 75, 78, 81, 84]
+      ⭐ single chain of command: a valid key from the wrong head does not chain.
+
+  ══════ SCENARIO H4 · tool receipts · the instance's word is never the record ══════
+   1) honest call         : ACCEPTED
+   2) claimed, not run    : CLAIMED_NOT_DELIVERED · no receipt
+   3) output altered      : OUTPUT_ALTERED · output does not hash to the receipt
+   4) wrong target        : WRONG_TARGET · receipt bound to http/https://allowed.example for g1-i000
+
+   auditor · executor counter vs receipts in the trail
+      g1        RECEIPT REFUSED
+           g1-i000 · CLAIMED_NOT_DELIVERED · no receipt
+           g1-i000 · OUTPUT_ALTERED · output does not hash to the receipt
+           g1-i000 · WRONG_TARGET · receipt bound to http/https://allowed.example for g1-i000
+      _executor RECEIPT MISSING · 5 issued by the witness, 4 in trails, unaccounted counters [5]
+      ⭐ claimed-not-done, altered output, wrong target: refused at the gate. Hidden call: counted by the auditor.
+
+  ══════ SCENARIO H5 · the executor's key is seized · mutual one-time keys ══════
+   1) honest call         : ACCEPTED
+   2) seized key replayed : EXECUTOR_UNVERIFIED · key is spent, stale or foreign (its hash is not the last accepted key)
+
+   auditor · keys requested from the witness vs receipts in the trail
+      g1        RECEIPT REFUSED
+           g1-i000 · EXECUTOR_UNVERIFIED · key is spent, stale or foreign (its hash is not the last accepted key)
+      _executor RECEIPT MISSING · 6 issued by the witness, 1 in trails, unaccounted counters [2, 3, 4, 5, 6]
+      ⭐ a seized executor cannot mint from a spent key; every fresh key it asks for is one the witness counts.
+      limit, stated: a compromised WITNESS can issue keys to anyone (the same last line as D2).
+
+  five scenarios · group_head · trails written next to this file · standard library only

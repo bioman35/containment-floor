@@ -1,0 +1,7 @@
+# Record of outside run 4. The runner pasted the full console output into a chat; the record kept is the runner line and the advisor's digest comparison below, not the full transcript.
+# Paths, user names and host names are masked as <path>, <prompt>, <host>.
+
+OUTSIDE RUN #4 · runner: Kağan Doğan · computer engineering, 2nd-year student · 8 Sep 2026 (TR evening) · Python 3.14.7 · machine: custom-built desktop PC, RTX 4060, Windows (shasum absent → Windows; certutil/Get-FileHash suggested) · zip sha256: not measured (runner received floor.py alone, no zip) · floor.py sha256: 007572f69ff04a75b86e27b5ead8cd74fce0efc2e4c026b2d27c64f8f3fb818f (MATCHES reference)
+Output as pasted by Turan (verbatim, all seven scenarios; header line "Python 3.14.7  bilgisayar mühendisliği 2. sınıf öğrencisi." was the runner's own note).
+Danışman check (8 Sep): deterministic digests identical to run #3 (D text 18f80289…, rewritten 7cdfd51c…, E signpost d6f48db0…, e7df8c68…, b0093351…, 3db284da…, G ee4919b9…, b5c13bb4…). Time-window fields differ by design (F: expired window 59630025 vs 59621496 in run #3; anchor/keys derive from the window). All seven trails "chain intact". Result: PASS · "seven scenarios · trails written next to this file · standard library only".
+Python 3.14.7 is OUTSIDE the tested range in the package README (3.9–3.13) → the range statement can be widened to 3.9–3.14 at kickoff regen.
