@@ -2,6 +2,10 @@
 
 This repository is the verification package for the report "The Floor That Cannot Be Lowered: A containment standard for guardrails-off evaluation runs that a third party can verify without the lab's network", submitted to the Apart Research AI Incident Response Sprint (Track 1, Containment), September 2026.
 
+## In one paragraph
+
+Agents under evaluation sometimes run with guardrails off. This package is a containment floor for that case. It does not judge what the agent says or does. It changes the structure around the agent: every action costs a single-use key issued from outside the agent, keys are consumed and never held, and every step is written to an append-only, hash-chained log kept by a witness. To take authority back you do not have to say "stop". You stop handing out keys. Because the files are frozen and their hashes are published, anyone can re-run the checks and get the same decision lines without access to the lab's network.
+
 ## Claim
 
 `floor.py` and `group_head.py` are frozen. Their SHA-256 hashes are printed in the report and in `SHA256SUMS.txt`. On three operating systems and Python versions from 3.9.6 to 3.14.7 they print the same decision lines. They use the Python standard library only. They need no network access and no third-party package.
@@ -61,8 +65,18 @@ The run by Kağan Doğan was compared digest by digest when it arrived. The file
 sha256sum -c SHA256SUMS.txt
 ```
 
-## License and report
+## Report
 
-The code is licensed under the Apache License 2.0. See `LICENSE` and the SPDX header in `floor.py`. Author: Turan Kayık.
+"The Floor That Cannot Be Lowered", Apart Research AI Incident Response Sprint, Track 1 (Containment). Submitted 13 September 2026. Apart announces results within about a month of the sprint. The PDF will be added to this repository under `report/` once Apart publishes the submissions. Until then the frozen files, the hashes and the run records above are the public record.
 
-Report: "The Floor That Cannot Be Lowered", Apart Research AI Incident Response Sprint, September 2026. A link will be added when the report is published.
+## License
+
+The code is licensed under the Apache License 2.0. See `LICENSE` and the SPDX header in `floor.py`.
+
+## Contact and citation
+
+Turan Kayık, İzmir, Türkiye. Contact: biosbilgisayar@gmail.com. Profile: https://www.linkedin.com/in/turan-kayik-b7788314b
+
+If you use this work, please cite it as:
+
+Kayık, T. (2026). The Floor That Cannot Be Lowered: a containment standard for guardrails-off evaluation runs that a third party can verify without the lab's network. Apart Research AI Incident Response Sprint, Track 1. https://github.com/bioman35/containment-floor
