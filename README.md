@@ -1,5 +1,29 @@
 # containment-floor
 
+**A containment floor for AI agents that run with guardrails off. Every action needs a single-use key issued from outside the agent, and every step is written to a hash-chained log kept by a witness. To take control back, you stop issuing keys. Anyone can verify the package offline in about a minute, with the Python standard library only.**
+
+```mermaid
+flowchart LR
+  K["Key issuer<br/>(outside the agent)"] -- "single-use key" --> A["Agent under evaluation<br/>(guardrails off)"]
+  A -- "action + consumed key" --> W["Witness<br/>append-only, hash-chained log"]
+  W -- "published checkpoint" --> V["Third-party verifier<br/>(no lab network needed)"]
+  K -. "stop issuing keys" .-> S(["Authority taken back"])
+```
+
+### Verify in 60 seconds
+
+```
+git clone https://github.com/bioman35/containment-floor
+cd containment-floor
+sha256sum -c SHA256SUMS.txt
+python3 floor.py
+python3 group_head.py
+```
+
+Both programs exit with code 0 and print the decision lines listed in `VERIFY.md`. No network access, no third-party packages.
+
+---
+
 This repository is the verification package for the report "The Floor That Cannot Be Lowered: A containment standard for guardrails-off evaluation runs that a third party can verify without the lab's network", submitted to the Apart Research AI Incident Response Sprint (Track 1, Containment), September 2026.
 
 ## In one paragraph
